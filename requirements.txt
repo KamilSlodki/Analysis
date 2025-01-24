@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+kucoin-python
+pandas
+ta
+pmdarima
+python-dotenv
+statsmodels
+numpy
+matplotlib
