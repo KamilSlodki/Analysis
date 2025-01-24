@@ -26,8 +26,12 @@ if not all([KUCOIN_API_KEY, KUCOIN_SECRET_KEY, KUCOIN_PASSPHRASE]):
 # Configurar el cliente de KuCoin
 market_client = Market(KUCOIN_API_KEY, KUCOIN_SECRET_KEY, KUCOIN_PASSPHRASE)
 
-# === Configurar FastAPI ===
-app = FastAPI()
+# === Configurar FastAPI con `servers` ===
+app = FastAPI(
+    servers=[
+        {"url": "https://analysis-kf4f.onrender.com", "description": "Render Deployment"}
+    ]
+)
 
 # === Modelos de datos ===
 class SymbolRequest(BaseModel):
