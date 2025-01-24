@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: KuCoin Analysis API
+  description: API para análisis de mercado usando datos de KuCoin.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+    description: Servidor local para pruebas
+paths:
+  /get_data/:
+    post:
+      operationId: getData
+      summary: Obtiene datos de mercado y calcula indicadores técnicos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                symbol:
+                  type: string
+                  description: El símbolo de la moneda (por ejemplo, BTC-USDT).
+                  example: "BTC-USDT"
+                interval:
+                  type: string
+                  description: El intervalo de tiempo de las velas (por ejemplo, 1hour, 1day).
+                  example: "1hour"
+      responses:
+        '200':
+          description: Datos del mercado con indicadores calculados.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    time:
+                      type: string
+                      format: date-time
+                    close:
+                      type: string
+                      example: "54321.12"
+                    RSI:
+                      type: number
+                      example: 45.6
+  /predictions/arima/:
+    post:
+      operationId: arimaPredictions
+      summary: Predicciones ARIMA para una lista de precios.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prices:
+                  type: array
+                  items:
+                    type: number
+                  example: [50000, 51000, 52000, 53000, 54000]
+      responses:
+        '200':
+          description: Predicciones calculadas con ARIMA.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictions:
+                    type: array
+                    items:
+                      type: number
